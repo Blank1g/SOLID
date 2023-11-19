@@ -1,172 +1,106 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    [SerializeField]
+    float moveSpeed = 5f;
 
-    private InputActions inputActions;
-    private InputAction move;
+    [SerializeField]
+    float rotationSpeed = 500f;
 
-    private Rigidbody rb;
-    private float moveSpeed;
-    private float startYScale;
+    [Header("Ground Check Settings")]
+    [SerializeField]
+    float groundCheckRadius = 0.2f;
 
-    [SerializeField] private float jumpForse = 5f;
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float sprintSpeed = 10f;
-    [SerializeField] private float crouchSpeed = 1f;
-    [SerializeField] private float crouchYScale = .5f;
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private MovementState movementState;
+    [SerializeField]
+    Vector3 groundCheckOffset;
 
-    private Vector3 forceDirection = Vector3.zero;
+    [SerializeField]
+    LayerMask groundLayer;
 
-    private enum MovementState {
-        Walking,
-        Sprinting,
-        Crouching,
-        CrochingSprinting,
+    public InputAction moveAction;
+    public InputAction jumpAction;
+
+    bool isGrounded;
+    float ySpeed;
+
+    Quaternion targetRotation;
+    CameraController cameraController;
+    Animator animator;
+    CharacterController characterController;
+
+    public void OnEnable()
+    {
+        moveAction.Enable();
+        jumpAction.Enable();
     }
 
-    private void Awake() {
-        inputActions = new InputActions();
-        rb = this.GetComponent<Rigidbody>();
+    public void OnDisable()
+    {
+        moveAction.Disable();
+        jumpAction.Disable();
     }
 
-    private void Start() {
-        startYScale = this.transform.localScale.y;
-        moveSpeed = walkSpeed;
+    private void Awake()
+    {
+        cameraController = Camera.main.GetComponent<CameraController>();
+        animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
     }
 
-    private void OnEnable() {
-        inputActions.Player.Jump.started += DoJump;
-        inputActions.Player.Sprint.started += SprintToggle;
-        inputActions.Player.Sprint.canceled += SprintToggle;
-        inputActions.Player.Crouch.started += CrouchToggle;
-        inputActions.Player.Crouch.canceled += CrouchToggle;
-        move = inputActions.Player.Move;
+    private void Update()
+    {
+        Vector2 mAction = moveAction.ReadValue<Vector2>();
+        Vector3 moveInput = new Vector3(mAction.x, 0, mAction.y);
+        float moveAmount = Mathf.Clamp(Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.z), 0, 1f);
+        var cameraProjection = cameraController.GetCameraProjection();
+        var moveDirection =
+            cameraProjection.forward * moveInput.z + cameraProjection.right * moveInput.x;
 
-        inputActions.Player.Enable();
-    }
+        GroundCheck();
 
-    private void FixedUpdate() {
-        StateHandler();
-        Move();
-        LookAt();
-    }
-
-    private void OnDisable() {
-        inputActions.Player.Jump.started -= DoJump;
-        inputActions.Player.Disable();
-    }
-
-    private void StateHandler() {
-        if (IsGrounded() && movementState == MovementState.Sprinting) {
-            moveSpeed = sprintSpeed;
-        } else if (IsGrounded() && movementState == MovementState.Walking) {
-            moveSpeed = walkSpeed;
-        } else if (IsGrounded() && movementState == MovementState.Crouching) {
-            moveSpeed = crouchSpeed;
-        } else if (IsGrounded() && movementState == MovementState.CrochingSprinting) {
-            moveSpeed = crouchSpeed * 2f;
+        if (isGrounded)
+        {
+            ySpeed = -0.5f;
         }
-    }
-
-    private void LookAt() {
-        Vector3 direction = rb.velocity;
-        direction.y = 0f;
-
-        if (move.ReadValue<Vector2>().sqrMagnitude > 0.1f && direction.sqrMagnitude > 0.1f) {
-            this.rb.rotation = Quaternion.LookRotation(direction, Vector3.up);
-        } else {
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-
-    private Vector3 GetCameraForward(Camera playerCamera) {
-        Vector3 forward = playerCamera.transform.forward;
-        forward.y = 0;
-
-        return forward.normalized;
-    }
-
-    private Vector3 GetCameraRight(Camera playerCamera) {
-        Vector3 right = playerCamera.transform.right;
-        right.y = 0;
-
-        return right.normalized;
-    }
-
-    private void Move() {
-        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera);
-        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera);
-
-        rb.AddForce(forceDirection, ForceMode.Impulse);
-        forceDirection = Vector3.zero;
-
-        if (rb.velocity.y < 0f) {
-            rb.velocity -= Vector3.down * Physics.gravity.y * 2f * Time.deltaTime;
+        else
+        {
+            ySpeed += Physics.gravity.y * Time.deltaTime;
         }
 
-        Vector3 horizontalVelocity = rb.velocity;
-        horizontalVelocity.y = 0f;
-        if (horizontalVelocity.sqrMagnitude > moveSpeed * moveSpeed) {
-            rb.velocity = horizontalVelocity.normalized * moveSpeed + Vector3.up * rb.velocity.y;
+        var velocity = moveDirection * moveSpeed;
+        velocity.y = ySpeed;
+
+        characterController.Move(velocity * Time.deltaTime);
+
+        if (moveAmount > 0)
+        {
+            targetRotation = Quaternion.LookRotation(moveDirection);
         }
+
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
+
+        animator.SetFloat("moveAmount", moveAmount, 0.1f, Time.deltaTime);
     }
 
-    private void DoJump(InputAction.CallbackContext context) {
-        if (IsGrounded()) {
-            forceDirection += Vector3.up * jumpForse;
-        }
+    private void GroundCheck()
+    {
+        isGrounded = Physics.CheckSphere(
+            transform.TransformPoint(groundCheckOffset),
+            groundCheckRadius,
+            groundLayer
+        );
     }
 
-    private void SprintToggle(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Started) {
-            if (movementState == MovementState.Walking) {
-                movementState = MovementState.Sprinting;
-            } else if (movementState == MovementState.Crouching) {
-                movementState = MovementState.CrochingSprinting;
-            }
-        } else {
-            if (movementState == MovementState.Sprinting) {
-                movementState = MovementState.Walking;
-            } else if (movementState == MovementState.CrochingSprinting) {
-                movementState = MovementState.Crouching;
-            }
-        }
-    }
-
-    private void CrouchToggle(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Started) {
-            if (movementState == MovementState.Walking) {
-                movementState = MovementState.Crouching;
-            } else if (movementState == MovementState.Sprinting) {
-                movementState = MovementState.CrochingSprinting;
-            }
-
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
-            rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        } else {
-            if (movementState == MovementState.Crouching) {
-                movementState = MovementState.Walking;
-            } else if (movementState == MovementState.CrochingSprinting) {
-                movementState = MovementState.Sprinting;
-            }
-
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-        }
-    }
-
-    private bool IsGrounded() {
-        Ray ray = new Ray(this.transform.position, Vector3.down);
-        if (Physics.Raycast(ray, out RaycastHit hit, 0.3f)) {
-            return true;
-        } else {
-            return false;
-        }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0, 1, 0, 0.5f);
+        Gizmos.DrawWireSphere(transform.TransformPoint(groundCheckOffset), groundCheckRadius);
     }
 }
