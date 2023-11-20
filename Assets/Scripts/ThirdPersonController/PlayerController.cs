@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,9 +20,9 @@ public class PlayerController : MonoBehaviour
     LayerMask groundLayer;
 
     public InputAction moveAction;
-    public InputAction jumpAction;
 
     bool isGrounded;
+    bool hasControl = true;
     float ySpeed;
 
     Quaternion targetRotation;
@@ -31,16 +30,28 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     CharacterController characterController;
 
+    public float RotationSpeed => rotationSpeed;
+
     public void OnEnable()
     {
         moveAction.Enable();
-        jumpAction.Enable();
     }
 
     public void OnDisable()
     {
         moveAction.Disable();
-        jumpAction.Disable();
+    }
+
+    public void SetControl(bool hasControl)
+    {
+        this.hasControl = hasControl;
+        characterController.enabled = hasControl;
+
+        if (!hasControl)
+        {
+            animator.SetFloat("moveAmount", 0);
+            targetRotation = transform.rotation;
+        }
     }
 
     private void Awake()
@@ -58,6 +69,11 @@ public class PlayerController : MonoBehaviour
         var cameraProjection = cameraController.GetCameraProjection();
         var moveDirection =
             cameraProjection.forward * moveInput.z + cameraProjection.right * moveInput.x;
+
+        if (!hasControl)
+        {
+            return;
+        }
 
         GroundCheck();
 
