@@ -18,6 +18,9 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     bool invertY;
 
+    [SerializeField]
+    Transform cameraCenterPoint;
+
     public InputAction rotationAction;
 
     Vector2 rotationInput;
@@ -27,6 +30,10 @@ public class CameraController : MonoBehaviour
 
     float invertXVal;
     float invertYVal;
+
+    private void Awake() {
+        SetCameraCenterPoint();
+    }
 
     public void OnEnable()
     {
@@ -78,5 +85,12 @@ public class CameraController : MonoBehaviour
         rotationY += rotationInput.x * invertXVal * rotationSpeed;
 
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+    }
+
+    private void SetCameraCenterPoint() {
+        Ray ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
+            cameraCenterPoint.position = hit.point;
+        }
     }
 }
