@@ -8,6 +8,12 @@ public class ParkourController : MonoBehaviour
     [SerializeField]
     List<ParkourAction> parkourActions;
 
+    [SerializeField]
+    ParkourAction jumpDownAction;
+
+    [SerializeField]
+    float autoJumpHeightLimit = 1f;
+
     bool inAction;
 
     EnvironmentScanner environmentScanner;
@@ -36,10 +42,10 @@ public class ParkourController : MonoBehaviour
     private void Update()
     {
         var jumpInput = jumpAction.ReadValue<float>();
+        var hitData = environmentScanner.ObstacleCheck();
 
         if (jumpInput > 0 && !inAction)
         {
-            var hitData = environmentScanner.ObstacleCheck();
             if (hitData.forwardHitFound)
             {
                 foreach (var action in parkourActions)
@@ -50,6 +56,22 @@ public class ParkourController : MonoBehaviour
                         break;
                     }
                 }
+            }
+        }
+
+        if (playerController.IsOnLedge && !inAction && !hitData.forwardHitFound)
+        {
+            bool shouldJump = true;
+
+            if (playerController.LedgeData.height > autoJumpHeightLimit && jumpInput <= 0)
+            {
+                shouldJump = false;
+            }
+
+            if (shouldJump && playerController.LedgeData.angle <= 50)
+            {
+                playerController.IsOnLedge = false;
+                StartCoroutine(DoParkourAction(jumpDownAction));
             }
         }
     }
