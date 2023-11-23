@@ -1,0 +1,9 @@
+ALL AUDIOS inside the [Julhiecio TPS Controller/Audio] folder are under CC0 1.0 license
+This means that all files inside this folder are in the public domain and have no rights reserved.
+These files are found at: www.freesounds.org
+
+ALL TEXTURES inside the [Julhiecio TPS Controller/Textures/CC0 Textures] folder are under the CC0 1.0 license
+This means that all files inside this folder are in the public domain and have no rights reserved.
+These files are found at: www.ambientcg.com
+
+More information about CC0 1.0 License: https://creativecommons.org/publicdomain/zero/1.0/

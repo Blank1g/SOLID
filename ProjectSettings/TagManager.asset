@@ -4,7 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Fence
+  - DeadZone
+  - VehicleArea
+  - Bullet
+  - Loop
+  - RagdollZone
+  - Grass
+  - Stone
+  - Tiles
+  - Skin
+  - Enemy
+  - Distractable
+  - CoverTrigger
   layers:
   - Default
   - TransparentFX
@@ -12,18 +23,18 @@ TagManager:
   - 
   - Water
   - UI
-  - Obstacles
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Vehicle
+  - Character
+  - Bullet
+  - Terrain
+  - VehicleMeshCollider
+  - VehicleWheel
+  - Item
+  - Bones
+  - Walls
+  - Trigger
   - 
   - 
   - 
