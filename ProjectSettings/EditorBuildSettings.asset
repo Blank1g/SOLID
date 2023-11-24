@@ -6,6 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+    path: Assets/Demo/Demo Scenes/Menu.unity
+    guid: fdb5c4156b1e657409311d96ac41cdb5
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/ThirdPerson Shooter Demo.unity
+    guid: 2a86cecebaf8c564ba4c909505ede858
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/Sidescroller Demo.unity
+    guid: 1eb40af9452e5f54f98fb53a261c2345
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/FPS Sample.unity
+    guid: c7ecf90110f444e4bac79dd89ab48642
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/Top Down Demo.unity
+    guid: 66fe771bf8e05b540a01defbacd34928
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/Gravity Switch Demo.unity
+    guid: a41677c782617a446aeea215b3910f8d
+  - enabled: 1
+    path: Assets/Demo/Demo Scenes/Vehicle AI Demo.unity
+    guid: c8fc78b16527a1b47a862fe8743b0fd8
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 2ec44aec0dd0a564fa6de8ea4b3c5852,
+      type: 2}
