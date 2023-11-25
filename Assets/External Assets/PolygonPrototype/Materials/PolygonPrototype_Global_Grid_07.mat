@@ -59,7 +59,7 @@ Material:
     - _Falloff: 50
     - _GridScale: 1
     - _OverlayAmount: 0.5
-    - _QueueControl: -1
+    - _QueueControl: 0
     - _QueueOffset: 0
     - __dirty: 0
     m_Colors:
