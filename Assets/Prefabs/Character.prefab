@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.1272034, y: 0.029375885, z: -0.65810245, w: 0.7415238}
   m_LocalPosition: {x: 0.212, y: 0.227, z: 0.407}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
@@ -944,6 +944,10 @@ GameObject:
   - component: {fileID: 7075366378443545521}
   - component: {fileID: 365991442510671522}
   - component: {fileID: 4590929355700051291}
+  - component: {fileID: 7856176058442495578}
+  - component: {fileID: 736807811355380663}
+  - component: {fileID: 4802053316578066564}
+  - component: {fileID: 5203896594845372771}
   m_Layer: 9
   m_Name: Character
   m_TagString: Player
@@ -1310,8 +1314,8 @@ MonoBehaviour:
   IsArtificialIntelligence: 0
   UseDefaultControllerInput: 1
   AutoRun: 1
-  WalkOnRunButton: 1
-  SprintOnRunButton: 0
+  WalkOnRunButton: 0
+  SprintOnRunButton: 1
   UnlimitedSprintDuration: 0
   DecreaseSpeedOnJump: 0
   BlockVerticalInput: 0
@@ -1416,10 +1420,127 @@ MonoBehaviour:
     ResourcesPath: 
     GizmosColor: {r: 0, g: 0, b: 0, a: 0.5}
     WireGizmosColor: {r: 0.9, g: 0.4, b: 0.2, a: 0.5}
-    StepVisualizerMesh: {fileID: 0}
+    StepVisualizerMesh: {fileID: -3964615163347849732, guid: 6b70b21f3295a7441b544a6f7bd820e9,
+      type: 3}
   StepCorrection: 1
   GroundCheck: 1
   WallCheck: 1
+--- !u!114 &7856176058442495578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322232648977797143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3a90835420dd44ca72e32a3ab2d133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateOnBodyItemsVisibility: 1
+  DisableAllItemsOnStart: 1
+  IsALoot: 0
+  HoldableItensRightHand:
+  - {fileID: 0}
+  - {fileID: 0}
+  HoldableItensLeftHand: []
+  AllHoldableItems: []
+  AllItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  SequenceSlot:
+  - SelectedSlot: 0
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 1
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 2
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 3
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 4
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 5
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 6
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 7
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 8
+    ItemInThisSlot: {fileID: 0}
+  - SelectedSlot: 9
+    ItemInThisSlot: {fileID: 0}
+  EnablePickup: 1
+  ItemLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  CheckerOffset: {x: 0, y: 0, z: 0}
+  CheckerRadious: 1
+  UseDefaultInputToPickUp: 1
+  AutoEquipPickedUpItems: 1
+  HoldTimeToPickUp: 0.1
+  ItemToPickUp: {fileID: 0}
+  ItemsAround: []
+  WeaponsRightHand: []
+  WeaponsLeftHand: []
+  HoldableItemInUseInRightHand: {fileID: 0}
+  HoldableItemInUseInLeftHand: {fileID: 0}
+  WeaponInUseInRightHand: {fileID: 0}
+  WeaponInUseInLeftHand: {fileID: 0}
+  MeleeWeaponInUseInRightHand: {fileID: 0}
+  MeleeWeaponInUseInLeftHand: {fileID: 0}
+  CurrentRightHandItemID: -1
+  CurrentLeftHandItemID: -1
+  IsItemSelected: 0
+  DualWielding: 0
+  IsPickingItem: 0
+--- !u!114 &736807811355380663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322232648977797143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f747d2d5bac5f4996b4647ddcd8528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MouseLooker: {fileID: 4802053316578066564}
+  JoystickLooker: {fileID: 5203896594845372771}
+--- !u!114 &4802053316578066564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322232648977797143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00d938d9a98c6a4d9171339d88e8c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  NormalOffset: 0.1
+  PreventResetingAimPosition: 0
+  TwoDimensional: 0
+--- !u!114 &5203896594845372771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322232648977797143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c2a40cfd5a9f84aaacfa467290d3b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enabled: 1
+  DistanceFromCenter: 5
+  UpOffset: 0
+  FireModeWhenHasJoystickDirection: 1
+  SidescrollerAimMode: 0
+  IsUsingJoystick: 0
 --- !u!1 &3369278551723898644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,7 +1895,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.47304577, y: -0.4621461, z: -0.47734848, w: 0.5786079}
   m_LocalPosition: {x: 0.302, y: 0.167, z: 0.258}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
@@ -1983,7 +2104,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.07306647, y: 0.06705522, z: -0.7331321, w: 0.6728166}
   m_LocalPosition: {x: 0.207, y: 0.14, z: 0.24}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
@@ -2033,7 +2154,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.07306647, y: 0.06705522, z: -0.7331321, w: 0.6728166}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
@@ -2381,7 +2502,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.33424655, y: -0.5801304, z: -0.65039605, w: 0.35876584}
   m_LocalPosition: {x: 0.217, y: 0.046, z: 0.259}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
@@ -2527,7 +2648,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.07306647, y: 0.06705522, z: -0.7331321, w: 0.6728166}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2836890053735421845}
