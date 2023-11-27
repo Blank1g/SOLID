@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JUTPS.JUInputSystem;
@@ -17,10 +17,6 @@ namespace JUTPS.CameraSystems
 		public CameraState AimModeCameraState = new CameraState("Scope Mode Camera State", 15, 15, 50, 0, 0, 0, 0, 0, 0);
 		public CameraState DrivingVehicleCameraState = new CameraState("Driving Vehicle Camera State", 15, 15, 50, 0, 0, 0, 0, 0, 0);
 		public CameraState DeadPlayerCameraState = new CameraState("Dead Player Camera State", 15, 15, 30, 0, 0, 0, 0, 0, 0);
-
-		private void Awake() {
-			SetCameraCenterPoint(); 
-		}
 
 		protected override void Start()
 		{
@@ -90,14 +86,6 @@ namespace JUTPS.CameraSystems
 				case PlayerStates.Dead:
 					SetCameraStateTransition(GetCurrentCameraState, DeadPlayerCameraState);
 					break;
-			}
-		}
-
-		private void SetCameraCenterPoint() {
-			Debug.Log("SetCameraCenterPoint");
-			Ray ray = new Ray(transform.position, transform.forward);
-			if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
-				CameraCenterPoint.position = hit.point;
 			}
 		}
 	}

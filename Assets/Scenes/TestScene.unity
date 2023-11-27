@@ -6511,8 +6511,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7609659821714459927}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29307103, y: 0.3221966, z: -0.10647799, w: 0.89384633}
-  m_LocalPosition: {x: 7.6898, y: -9.777856, z: 10.0219965}
+  m_LocalRotation: {x: 0.29976043, y: 0.059579205, z: -0.019469576, w: 0.9519533}
+  m_LocalPosition: {x: 12.594486, y: -9.908464, z: 15.020358}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6642,7 +6642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fee3a865022094494209a2cfb64d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrosshairMousePosition: {fileID: 0}
   CrosshairSensibility: 6
   CrosshairChangeSpeed: 4
   FollowMousePosition: 0
@@ -8353,7 +8352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fee3a865022094494209a2cfb64d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrosshairMousePosition: {fileID: 1706457441}
   CrosshairSensibility: 8
   CrosshairChangeSpeed: 4
   FollowMousePosition: 1
@@ -13351,7 +13349,6 @@ MonoBehaviour:
   CrosshairRaycastLayerMask:
     serializedVersion: 2
     m_Bits: 104961
-  CameraCenterPoint: {fileID: 170265174}
   LockCursor: 0
   HideCursor: 0
   CustomCameraStates:
@@ -17071,6 +17068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1305291521485850486}
   - component: {fileID: 6453875240458207449}
+  - component: {fileID: 7609659821714459928}
   m_Layer: 0
   m_Name: TopDown Camera
   m_TagString: Untagged
@@ -17078,6 +17076,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7609659821714459928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609659821714459927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99468563543fcd34ea76ee86ac2495b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraCenterPoint: {fileID: 170265174}
+  CrosshairMousePosition: {fileID: 1706457441}
 --- !u!4 &7616340705120272427
 Transform:
   m_ObjectHideFlags: 0

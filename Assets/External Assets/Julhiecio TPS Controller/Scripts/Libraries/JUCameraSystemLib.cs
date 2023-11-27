@@ -86,7 +86,6 @@ namespace JUTPS.CameraSystems
 		public Transform TargetToFollow;
 		public LayerMask CameraCollisionLayerMask;
 		public LayerMask CrosshairRaycastLayerMask;
-		public Transform CameraCenterPoint; 
 
 		public bool LockCursor = true;
 		public bool HideCursor = true;
