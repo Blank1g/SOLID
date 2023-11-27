@@ -7,7 +7,6 @@ using JUTPS.JUInputSystem;
 using JUTPS.CameraSystems;
 using JUTPS.WeaponSystem;
 using JUTPS;
-using System;
 
 namespace JUTPS.UI
 {
@@ -18,7 +17,6 @@ namespace JUTPS.UI
         public static bool AimingOnTarget;
         public static bool AimingOnFriend;
         public static GameObject ObjectOnCrosshairPoint;
-        public Transform CrosshairMousePosition;
 
         private JUCameraController cameraController;
         private JUCharacterController player;
@@ -187,7 +185,7 @@ namespace JUTPS.UI
 
             return color;
         }
-        public void GetObjectOnCrosshairPoint(Camera camera, LayerMask CrosshairRaycastLayerMask, out GameObject ObjectOnMousePosition)
+        public static void GetObjectOnCrosshairPoint(Camera camera, LayerMask CrosshairRaycastLayerMask, out GameObject ObjectOnMousePosition)
         {
             ObjectOnMousePosition = null;
 
@@ -197,7 +195,6 @@ namespace JUTPS.UI
             if (Physics.Raycast(MouseRay, out hit, 1000, CrosshairRaycastLayerMask))
             {
                 ObjectOnMousePosition = hit.collider.gameObject;
-                CrosshairMousePosition.position = hit.point;
             }
         }
         public static bool IsAimingOnShootableObject(GameObject ObjectOnMousePosition, string[] TargetList)
@@ -259,7 +256,6 @@ namespace JUTPS.UI
         {
             if (!HideOnNoWeaponUsing) return;
             SetActiveCrosshair((player.HoldableItemInUseRightHand || player.HoldableItemInUseLeftHand) ? true : false);
-            CrosshairMousePosition.gameObject.SetActive((player.HoldableItemInUseRightHand || player.HoldableItemInUseLeftHand) ? true : false);
         }
         public void HideCrosshairOnAiming()
         {

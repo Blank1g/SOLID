@@ -10,8 +10,6 @@ namespace JUTPS.ActionScripts
     {
         [HideInInspector] public static Vector3 AimPosition;
 
-        private JUCharacterController player;
-
         [Header("Settings")]
         public bool Enabled = true;
         public float NormalOffset = 0.1f;
