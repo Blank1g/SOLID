@@ -54,7 +54,7 @@ namespace JUTPS.ActionScripts
             else
             {
                 RaycastHit hit;
-                Physics.Raycast(cam.ScreenPointToRay(mousePosition), out hit, (TPSCharacter.MyPivotCamera == null) ? default(LayerMask) : TPSCharacter.MyPivotCamera.CrosshairRaycastLayerMask);
+                Physics.Raycast(cam.ScreenPointToRay(mousePosition), out hit, float.MaxValue, (TPSCharacter.MyPivotCamera == null) ? default(LayerMask) : TPSCharacter.MyPivotCamera.CrosshairRaycastLayerMask);
 
                 if (PreventResetingAimPosition == true)
                 {
@@ -72,6 +72,7 @@ namespace JUTPS.ActionScripts
                     }
                 }
             }
+            Debug.DrawLine(transform.position, AimPosition, Color.red);
             TPSCharacter.LookAtPosition = AimPosition;
         }
         private void OnDrawGizmos()

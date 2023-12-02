@@ -45,7 +45,6 @@ public class DroneCameraController : MonoBehaviour {
     }
 
     private void SetCameraCenterPoint() {
-		Debug.Log("SetCameraCenterPoint");
 		Ray ray = new Ray(transform.position, transform.forward);
 		if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity)) {
 			CameraCenterPoint.position = hit.point;
